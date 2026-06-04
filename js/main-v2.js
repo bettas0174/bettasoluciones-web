@@ -105,29 +105,60 @@
   const totop = $('.totop');
   if (totop) totop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
-  /* ---- Formulario de contacto (mailto, sin backend todavía) ---- */
+  /* ---- Formulario de contacto → webhook n8n (con fallback a mailto) ---- */
   const form = $('#contact-form');
   const note = $('#form-note');
   const DESTINO = 'bettasoluciones.ventas@gmail.com';
+  const WEBHOOK = 'https://bettasoluciones-n8nn.cx2wou.easypanel.host/webhook/lead-betta';
   if (form && note) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const nombre = form.nombre.value.trim();
       const email = form.email.value.trim();
       const telefono = form.telefono.value.trim();
       const mensaje = form.mensaje.value.trim();
+      const largo = form.largo.value.trim();
+      const ancho = form.ancho.value.trim();
+      const alto = form.alto.value.trim();
+      const empresa_web = form.empresa_web ? form.empresa_web.value.trim() : '';
       const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-      if (!nombre || !emailOk || !mensaje) {
-        note.textContent = 'Completá nombre, un email válido y tu consulta.';
+      if (!nombre || !telefono || !mensaje) {
+        note.textContent = 'Completá los campos obligatorios (*): nombre, teléfono y tu consulta.';
         note.className = 'form__note is-error';
         return;
       }
-      const asunto = `Consulta web de ${nombre}`;
-      const cuerpo = `Nombre: ${nombre}\nEmail: ${email}\nTeléfono: ${telefono || '-'}\n\nConsulta:\n${mensaje}\n`;
-      window.location.href = `mailto:${DESTINO}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
-      note.textContent = 'Abrimos tu correo para enviar la consulta. ¡Gracias!';
-      note.className = 'form__note is-ok';
-      form.reset();
+      if (!emailOk) {
+        note.textContent = 'Ingresá un email válido: tiene que incluir @ y un dominio (ej: nombre@gmail.com).';
+        note.className = 'form__note is-error';
+        return;
+      }
+      const btn = form.querySelector('[type="submit"]');
+      if (btn) btn.disabled = true;
+      note.textContent = 'Enviando…';
+      note.className = 'form__note';
+      try {
+        /* Enviamos como form-encoded en modo no-cors: es una "petición simple"
+           (sin preflight OPTIONS), así el POST siempre llega al webhook de n8n
+           sin necesidad de configurar CORS del lado del servidor. La respuesta
+           es opaca (no se puede leer), pero si no hubo error de red el envío llegó. */
+        await fetch(WEBHOOK, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: new URLSearchParams({ nombre, email, telefono, mensaje, largo, ancho, alto, empresa_web }),
+        });
+        note.textContent = '¡Gracias! Recibimos tu consulta, te contactamos a la brevedad.';
+        note.className = 'form__note is-ok';
+        form.reset();
+      } catch (err) {
+        /* Si el webhook no responde, no perdemos la consulta: abrimos el correo. */
+        const asunto = `Consulta web de ${nombre}`;
+        const cuerpo = `Nombre: ${nombre}\nEmail: ${email}\nTeléfono: ${telefono || '-'}\n\nConsulta:\n${mensaje}\n`;
+        window.location.href = `mailto:${DESTINO}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
+        note.textContent = 'Abrimos tu correo para enviar la consulta. ¡Gracias!';
+        note.className = 'form__note is-ok';
+      } finally {
+        if (btn) btn.disabled = false;
+      }
     });
   }
 })();
