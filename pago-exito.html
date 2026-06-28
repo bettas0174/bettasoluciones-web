@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>¡Pago recibido! | Betta Soluciones</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles-v2.css" />
+  <style>
+    .pago-result { min-height: 80vh; display: grid; place-items: center; text-align: center; padding: 40px 20px; }
+    .pago-result__box { max-width: 540px; }
+    .pago-result__ico { width: 84px; height: 84px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 22px; font-size: 2.6rem; }
+    .pago-result__ico--ok { background: rgba(46,204,113,.15); color: #2ecc71; border: 2px solid rgba(46,204,113,.4); }
+    .pago-result h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 800; margin-bottom: 14px; }
+    .pago-result p { color: var(--muted); font-size: 1.1rem; margin-bottom: 24px; }
+    .pago-result .btn { margin: 6px; }
+  </style>
+</head>
+<body>
+  <section class="pago-result">
+    <div class="pago-result__box">
+      <div class="pago-result__ico pago-result__ico--ok">✓</div>
+      <h1>¡Recibimos tu pago!</h1>
+      <p>Gracias por tu compra. Ya te enviamos la confirmación por email y arrancamos a preparar tu pedido. Te vamos a contactar para coordinar el envío.</p>
+      <a href="index.html" class="btn btn--primary">Volver al inicio</a>
+      <a href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20acabo%20de%20pagar%20mi%20pedido." class="btn btn--ghost" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+    </div>
+  </section>
+</body>
+</html>
