@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Armá tu pedido y pagá online | Betta Soluciones</title>
+  <meta name="description" content="Armá tu pedido de calefactores industriales Betta (4, 6 y 15 kW), pagá con Mercado Pago (saldo o débito) o por transferencia con 10% de descuento. Fabricación nacional." />
+  <meta name="theme-color" content="#0f1115" />
+  <meta name="robots" content="index,follow" />
+
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles-v2.css" />
+  <link rel="stylesheet" href="css/mi-pedido.css" />
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header class="hdr" id="top">
+    <div class="wrap hdr__inner">
+      <a class="brand" href="index.html" aria-label="Betta Soluciones — Inicio">
+        <img src="img/logo-betta.jpg" alt="Betta Soluciones" class="brand__logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="brand__fb" style="display:none">BETTA<strong>SOLUCIONES</strong></span>
+      </a>
+      <nav class="nav" aria-label="Navegación principal">
+        <button class="nav__burger" aria-expanded="false" aria-controls="nav-list" aria-label="Abrir menú">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav__list" id="nav-list">
+          <li><a href="index.html#producto">Producto</a></li>
+          <li><a href="index.html#modelos">Modelos</a></li>
+          <li><a href="index.html#aplicaciones">Aplicaciones</a></li>
+          <li><a href="index.html#faq">Preguntas</a></li>
+          <li><a href="index.html#contacto" class="nav__cta">Contacto</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===== Encabezado ===== -->
+    <section class="pedido-head">
+      <div class="pedido-head__glow" aria-hidden="true"></div>
+      <div class="wrap">
+        <p class="eyebrow eyebrow--c"><span class="flag" aria-hidden="true"></span> Compra online · Fabricación nacional</p>
+        <h1>Armá tu pedido y pagá online</h1>
+        <p class="pedido-head__sub">
+          Elegí cuántos equipos necesitás (o calculalo por los m³ de tu espacio),
+          completá tus datos y pagá <strong>con Mercado Pago</strong> (saldo o débito) o por
+          <strong>transferencia con 10% de descuento</strong>.
+        </p>
+      </div>
+    </section>
+
+    <section class="sec pedido">
+      <div class="wrap pedido__grid">
+
+        <!-- ===== Columna izquierda: armado ===== -->
+        <div class="pedido__main">
+
+          <!-- Calculadora por m³ -->
+          <div class="card">
+            <h2 class="card__title">1 · ¿No sabés cuántos equipos necesitás?</h2>
+            <p class="card__lead">Cargá las medidas de tu espacio y te decimos cuántos equipos lo calefaccionan (cálculo: m³ × 30 kcal).</p>
+            <div class="calc">
+              <input type="number" id="calc-largo" min="0" step="0.1" inputmode="decimal" placeholder="Largo (m)" />
+              <input type="number" id="calc-ancho" min="0" step="0.1" inputmode="decimal" placeholder="Ancho (m)" />
+              <input type="number" id="calc-alto"  min="0" step="0.1" inputmode="decimal" placeholder="Alto (m)" />
+              <button type="button" id="calc-btn" class="btn btn--ghost">Calcular</button>
+            </div>
+            <div id="calc-out" class="calc__out"></div>
+          </div>
+
+          <!-- Selección de modelos -->
+          <div class="card">
+            <h2 class="card__title">2 · Elegí tus equipos</h2>
+            <p class="card__lead">Precios + IVA 21%. El envío se coordina aparte según tu localidad.</p>
+
+            <article class="prod">
+              <img src="img/productos/betta-4-6kw.jpg" alt="Betta W-4000 · 4 kW" loading="lazy" />
+              <div class="prod__info">
+                <h3>Betta W-4000 · 4 kW</h3>
+                <p>Potencia 2000/4000 W · monofásico · 8 kg. Para talleres y espacios medianos.</p>
+                <span class="prod__price">$590.000 <em>+ IVA</em></span>
+              </div>
+              <div class="qty" data-model="m4">
+                <button type="button" class="qty__minus" aria-label="Quitar uno">−</button>
+                <input class="qty__input" type="number" min="0" max="99" value="0" inputmode="numeric" aria-label="Cantidad de 4 kW" />
+                <button type="button" class="qty__plus" aria-label="Agregar uno">+</button>
+              </div>
+            </article>
+
+            <article class="prod">
+              <img src="img/productos/betta-4-6kw.jpg" alt="Betta 6 kW" loading="lazy" />
+              <div class="prod__info">
+                <h3>Betta 6 kW <span class="prod__star">★ más elegido</span></h3>
+                <p>6000 W · monofásico (opción trifásico) · 9 kg. Para galpones medianos.</p>
+                <span class="prod__price">$688.000 <em>+ IVA</em></span>
+              </div>
+              <div class="qty" data-model="m6">
+                <button type="button" class="qty__minus" aria-label="Quitar uno">−</button>
+                <input class="qty__input" type="number" min="0" max="99" value="0" inputmode="numeric" aria-label="Cantidad de 6 kW" />
+                <button type="button" class="qty__plus" aria-label="Agregar uno">+</button>
+              </div>
+            </article>
+
+            <article class="prod">
+              <img src="img/productos/betta-15kw.jpg" alt="Betta 15 kW" loading="lazy" />
+              <div class="prod__info">
+                <h3>Betta 15 kW</h3>
+                <p>15.000 W · trifásico · 16 kg. Para naves grandes y secaderos.</p>
+                <span class="prod__price">$1.380.000 <em>+ IVA</em></span>
+              </div>
+              <div class="qty" data-model="m15">
+                <button type="button" class="qty__minus" aria-label="Quitar uno">−</button>
+                <input class="qty__input" type="number" min="0" max="99" value="0" inputmode="numeric" aria-label="Cantidad de 15 kW" />
+                <button type="button" class="qty__plus" aria-label="Agregar uno">+</button>
+              </div>
+            </article>
+          </div>
+
+          <!-- Datos del cliente -->
+          <div class="card" id="datos">
+            <h2 class="card__title">3 · Tus datos</h2>
+            <form id="datos-form" novalidate>
+              <div class="form__row">
+                <label for="nombre">Nombre y apellido *</label>
+                <input type="text" id="nombre" name="nombre" required autocomplete="name" />
+              </div>
+              <div class="form__grid2">
+                <div class="form__row">
+                  <label for="email">Email *</label>
+                  <input type="email" id="email" name="email" required autocomplete="email" />
+                </div>
+                <div class="form__row">
+                  <label for="telefono">Teléfono / WhatsApp *</label>
+                  <input type="tel" id="telefono" name="telefono" required autocomplete="tel" inputmode="tel" />
+                </div>
+              </div>
+              <div class="form__grid2">
+                <div class="form__row">
+                  <label for="empresa">Empresa (opcional)</label>
+                  <input type="text" id="empresa" name="empresa" autocomplete="organization" />
+                </div>
+                <div class="form__row">
+                  <label for="localidad">Localidad / Provincia (para coordinar envío)</label>
+                  <input type="text" id="localidad" name="localidad" />
+                </div>
+              </div>
+              <div class="form__row">
+                <label for="cuit">CUIT (opcional, para facturar)</label>
+                <input type="text" id="cuit" name="cuit" inputmode="numeric" placeholder="Ej: 20-12345678-9" />
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <!-- ===== Columna derecha: resumen + pago (sticky) ===== -->
+        <aside class="pedido__side" id="resumen">
+          <div class="card resumen">
+            <h2 class="card__title">Tu pedido</h2>
+            <ul class="resumen__lines" id="resumen-lines"></ul>
+            <div class="resumen__totals">
+              <div class="resumen__row"><span>Subtotal (neto)</span><strong id="r-neto">$0</strong></div>
+              <div class="resumen__row"><span>IVA 21%</span><strong id="r-iva">$0</strong></div>
+              <div class="resumen__row resumen__row--big"><span>Total con IVA</span><strong id="r-total">$0</strong></div>
+            </div>
+
+            <div class="paybox">
+              <div class="paybox__opt">
+                <div class="paybox__head"><span>Pagar el total con Mercado Pago</span><strong id="r-mp">$0</strong></div>
+                <p class="paybox__hint">Pago 100% seguro: elegís en Mercado Pago cómo pagar (saldo en cuenta, tarjeta de débito, etc.). No guardamos los datos de tu tarjeta.</p>
+                <button type="button" id="pay-mp" class="btn btn--mp btn--block pay-btn" disabled><span class="mp-badge"><img src="data:image/jpeg;base64,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" alt="Mercado Pago" /></span>Pagar con Mercado Pago</button>
+              </div>
+              <div class="paybox__or"><span>o</span></div>
+              <div class="paybox__opt paybox__opt--alt">
+                <div class="paybox__head"><span>Total por transferencia <em class="paybox__off">−10%</em></span><strong id="r-transfer">$0</strong></div>
+                <p class="paybox__hint">Pagás el total en un solo pago por transferencia bancaria y te hacemos un 10% de descuento.</p>
+                <p class="paybox__save">Ahorrás <strong id="r-ahorro">$0</strong> eligiendo transferencia.</p>
+                <button type="button" id="pay-transfer" class="btn btn--dark btn--block pay-btn" disabled>Pagar total por transferencia</button>
+              </div>
+            </div>
+
+            <p class="pago-note" id="pago-note" role="status" aria-live="polite"></p>
+            <p class="resumen__safe">🔒 El pago con tarjeta se procesa en el entorno seguro de Mercado Pago. No guardamos datos de tu tarjeta.</p>
+          </div>
+
+          <a class="side-help" href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20tengo%20una%20consulta%20sobre%20un%20pedido%20online." target="_blank" rel="noopener">¿Dudas con tu pedido? Escribinos por WhatsApp →</a>
+        </aside>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== Modal de transferencia ===== -->
+  <div class="modal" id="transfer-modal" role="dialog" aria-modal="true" aria-labelledby="transfer-title">
+    <div class="modal__box">
+      <button class="modal__close" id="transfer-close" aria-label="Cerrar">×</button>
+      <h2 id="transfer-title">Pagá por transferencia</h2>
+      <p class="modal__lead">Transferí <strong id="transfer-monto">$0</strong> (total con 10% OFF) a esta cuenta y enviános el comprobante por WhatsApp. Apenas lo confirmamos, arrancamos tu fabricación.</p>
+      <ul class="bankdata">
+        <li><span>Titular</span><div><strong>Federico Daniel Albin</strong></div></li>
+        <li><span>Banco</span><div><strong>ICBC · Caja de ahorro $</strong></div></li>
+        <li><span>Alias</span><div><strong>BAHIA.EPICOSE.TELAR</strong><button class="copy" data-copy="BAHIA.EPICOSE.TELAR">Copiar</button></div></li>
+        <li><span>CBU</span><div><strong>0150804601000143731136</strong><button class="copy" data-copy="0150804601000143731136">Copiar</button></div></li>
+        <li><span>CUIT</span><div><strong>20-42302634-1</strong></div></li>
+      </ul>
+      <p class="modal__aviso" id="transfer-aviso">Nota: no pudimos registrar el pedido automáticamente, pero podés transferir igual y mandarnos el comprobante; lo tomamos a mano.</p>
+      <a class="btn btn--primary btn--block" href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20hice%20la%20transferencia%20de%20mi%20pedido%2C%20te%20paso%20el%20comprobante." target="_blank" rel="noopener">Enviar comprobante por WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- ===== Footer ===== -->
+  <footer class="foot">
+    <div class="wrap foot__grid">
+      <div class="foot__brand">
+        <img src="img/logo-betta.jpg" alt="Betta Soluciones" class="foot__logo" />
+        <p>Fábrica de calefacción industrial.<br />Máquinas herramientas · Córdoba, Argentina 🇦🇷</p>
+      </div>
+      <div class="foot__col">
+        <h4>Sitio</h4>
+        <a href="index.html#producto">Producto</a><a href="index.html#modelos">Modelos</a>
+        <a href="index.html#aplicaciones">Aplicaciones</a><a href="index.html#faq">Preguntas</a>
+      </div>
+      <div class="foot__col">
+        <h4>Contacto</h4>
+        <a href="mailto:bettasoluciones.ventas@gmail.com">Email</a>
+        <a href="https://wa.me/5493541628180" target="_blank" rel="noopener">WhatsApp</a>
+        <a href="https://www.instagram.com/bettasoluciones/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+      <div class="foot__cta">
+        <a href="index.html#contacto" class="btn btn--primary">Pedir presupuesto</a>
+      </div>
+    </div>
+    <div class="wrap foot__copy">© <span id="year"></span> Betta Soluciones. Todos los derechos reservados.</div>
+  </footer>
+
+  <a href="https://wa.me/5493541628180" class="wa-float" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="#fff"><path d="M.5 23.5l1.65-6a11.6 11.6 0 1 1 4.36 4.3L.5 23.5zM6.9 19.6l.37.22a9.6 9.6 0 1 0-3.3-3.25l.24.38-1 3.6 3.7-.95zM17.5 14.4c-.24-.12-1.4-.7-1.62-.78s-.38-.12-.54.12-.62.78-.76.94-.28.18-.52.06a7.8 7.8 0 0 1-2.3-1.42 8.6 8.6 0 0 1-1.6-2c-.16-.28 0-.43.12-.55s.24-.28.36-.42a1.6 1.6 0 0 0 .24-.4.44.44 0 0 0 0-.42c0-.12-.54-1.3-.74-1.78s-.4-.4-.54-.4h-.46a.9.9 0 0 0-.64.3 2.7 2.7 0 0 0-.84 2 4.7 4.7 0 0 0 1 2.5 10.7 10.7 0 0 0 4.1 3.62c.57.25 1.02.4 1.37.5a3.3 3.3 0 0 0 1.5.1 2.5 2.5 0 0 0 1.62-1.14 2 2 0 0 0 .14-1.14c-.06-.1-.22-.16-.46-.28z"/></svg>
+  </a>
+
+  <script src="js/mi-pedido.js" defer></script>
+</body>
+</html>
