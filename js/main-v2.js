@@ -69,6 +69,28 @@
     });
   }
 
+  /* ---- Fondo de llama del hero (port vanilla de "BackgroundGradientAnimation" de 21st.dev) ----
+     5 blobs de gradiente cálido animados por CSS (transform) + 1 que sigue el mouse con easing
+     vía requestAnimationFrame. El blur lo da el contenedor en CSS: no se anima ningún filtro por
+     frame. Respeta prefers-reduced-motion (no engancha el seguimiento del puntero). */
+  const hero = $('.hero');
+  const flamePointer = $('.flame--pointer');
+  if (hero && flamePointer && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    let curX = 0, curY = 0, tgX = 0, tgY = 0;
+    const ease = () => {
+      curX += (tgX - curX) / 20;
+      curY += (tgY - curY) / 20;
+      flamePointer.style.transform = 'translate(' + Math.round(curX) + 'px,' + Math.round(curY) + 'px)';
+      requestAnimationFrame(ease);
+    };
+    hero.addEventListener('mousemove', (e) => {
+      const r = hero.getBoundingClientRect();
+      tgX = e.clientX - r.left - r.width / 2;
+      tgY = e.clientY - r.top - r.height / 2;
+    }, { passive: true });
+    requestAnimationFrame(ease);
+  }
+
   /* ---- Reveal al scroll ---- */
   const reveals = $$('.reveal');
   if ('IntersectionObserver' in window && reveals.length) {
@@ -120,7 +142,18 @@
       const largo = form.largo.value.trim();
       const ancho = form.ancho.value.trim();
       const alto = form.alto.value.trim();
+      const cant_4kw = form.cant_4kw ? form.cant_4kw.value.trim() : '';
+      const cant_6kw = form.cant_6kw ? form.cant_6kw.value.trim() : '';
+      const cant_15kw = form.cant_15kw ? form.cant_15kw.value.trim() : '';
       const empresa_web = form.empresa_web ? form.empresa_web.value.trim() : '';
+      /* Cotizador: si cargó cantidades, las anexamos al mensaje para que lleguen
+         en el mail del lead sin tener que tocar el workflow de n8n. */
+      const pedidoParts = [];
+      if (cant_4kw && cant_4kw !== '0') pedidoParts.push(cant_4kw + 'x 4 kW');
+      if (cant_6kw && cant_6kw !== '0') pedidoParts.push(cant_6kw + 'x 6 kW');
+      if (cant_15kw && cant_15kw !== '0') pedidoParts.push(cant_15kw + 'x 15 kW');
+      const pedido = pedidoParts.join(', ');
+      const mensajeFull = pedido ? (mensaje + '\n\nEquipos solicitados: ' + pedido) : mensaje;
       const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
       if (!nombre || !telefono || !mensaje) {
         note.textContent = 'Completá los campos obligatorios (*): nombre, teléfono y tu consulta.';
@@ -144,7 +177,7 @@
         await fetch(WEBHOOK, {
           method: 'POST',
           mode: 'no-cors',
-          body: new URLSearchParams({ nombre, email, telefono, mensaje, largo, ancho, alto, empresa_web }),
+          body: new URLSearchParams({ nombre, email, telefono, mensaje: mensajeFull, largo, ancho, alto, cant_4kw, cant_6kw, cant_15kw, empresa_web }),
         });
         note.textContent = '¡Gracias! Recibimos tu consulta, te contactamos a la brevedad.';
         note.className = 'form__note is-ok';
@@ -152,7 +185,7 @@
       } catch (err) {
         /* Si el webhook no responde, no perdemos la consulta: abrimos el correo. */
         const asunto = `Consulta web de ${nombre}`;
-        const cuerpo = `Nombre: ${nombre}\nEmail: ${email}\nTeléfono: ${telefono || '-'}\n\nConsulta:\n${mensaje}\n`;
+        const cuerpo = `Nombre: ${nombre}\nEmail: ${email}\nTeléfono: ${telefono || '-'}\n\nConsulta:\n${mensajeFull}\n`;
         window.location.href = `mailto:${DESTINO}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
         note.textContent = 'Abrimos tu correo para enviar la consulta. ¡Gracias!';
         note.className = 'form__note is-ok';
