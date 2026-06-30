@@ -145,3 +145,9 @@
   .prod .qty { grid-column: 2 / 3; justify-self: start; }
   .foot__grid { grid-template-columns: 1fr; }
 }
+
+.pedido-trust { list-style:none; display:flex; flex-wrap:wrap; justify-content:center; gap:10px 24px; margin:20px auto 0; max-width:760px; padding:0; }
+.pedido-trust li { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:.88rem; }
+.pedido-trust svg { width:17px; height:17px; color:var(--orange-soft); flex:0 0 auto; }
+.pedido-trust strong { color:var(--text); font-weight:600; }
+.faq--checkout details { background:var(--bg-2); }

@@ -51,6 +51,12 @@
           completá tus datos y pagá <strong>con Mercado Pago</strong> (saldo o débito) o por
           <strong>transferencia con 10% de descuento</strong>.
         </p>
+        <ul class="pedido-trust" aria-label="Garantías de tu compra">
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/><path d="m9 12 2 2 4-4"/></svg><span><strong>Pago seguro</strong> con Mercado Pago</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg><span>No guardamos datos de tu tarjeta</span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6"/></svg><span><strong>Fabricación nacional</strong></span></li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6l8-3z"/></svg><span>Garantía 6 meses</span></li>
+        </ul>
       </div>
     </section>
 
@@ -76,7 +82,7 @@
           <!-- Selección de modelos -->
           <div class="card">
             <h2 class="card__title">2 · Elegí tus equipos</h2>
-            <p class="card__lead">Precios + IVA 21%. El envío se coordina aparte según tu localidad.</p>
+            <p class="card__lead">Precios + IVA 21%. Fabricamos a pedido: <strong>despachamos en 4 a 7 días hábiles</strong> desde la confirmación del pago. El envío se coordina aparte según tu localidad.</p>
 
             <article class="prod">
               <img src="img/productos/betta-4-6kw.jpg" alt="Betta W-4000 · 4 kW" loading="lazy" />
@@ -154,6 +160,17 @@
                 <input type="text" id="cuit" name="cuit" inputmode="numeric" placeholder="Ej: 20-12345678-9" />
               </div>
             </form>
+          </div>
+
+          <!-- Preguntas frecuentes de compra -->
+          <div class="card">
+            <h2 class="card__title">Preguntas frecuentes</h2>
+            <div class="faq faq--checkout">
+              <details><summary>¿Es seguro pagar online?</summary><p>Sí. El pago se procesa en el entorno seguro de Mercado Pago: nosotros no vemos ni guardamos los datos de tu tarjeta, solo recibimos la confirmación del pago.</p></details>
+              <details><summary>¿Hacen factura?</summary><p>Sí, emitimos factura. Si necesitás factura A, cargá tu CUIT en el paso "Tus datos".</p></details>
+              <details><summary>¿Cuánto tarda la fabricación y el envío?</summary><p>Fabricamos a pedido: despachamos en 4 a 7 días hábiles desde que se confirma el pago. El envío se coordina aparte según tu localidad, y te avisamos cuando sale.</p></details>
+              <details><summary>¿Puedo pagar por transferencia?</summary><p>Sí, con 10% de descuento pagando el total en una sola transferencia. Elegí esa opción y te mostramos los datos bancarios.</p></details>
+            </div>
           </div>
         </div>
 
@@ -233,7 +250,7 @@
         <a href="index.html#contacto" class="btn btn--primary">Pedir presupuesto</a>
       </div>
     </div>
-    <div class="wrap foot__copy">© <span id="year"></span> Betta Soluciones. Todos los derechos reservados.</div>
+    <div class="wrap foot__copy">© <span id="year"></span> Betta Soluciones. Todos los derechos reservados. · <a href="privacidad.html" style="color:inherit;text-decoration:underline">Privacidad</a> · <a href="eliminacion-datos.html" style="color:inherit;text-decoration:underline">Eliminación de datos</a></div>
   </footer>
 
   <a href="https://wa.me/5493541628180" class="wa-float" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
