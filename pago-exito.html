@@ -28,7 +28,8 @@
       <h1>¡Recibimos tu pago!</h1>
       <p>Gracias por tu compra. Confirmamos tu pago y ya empezamos a preparar tu pedido. Te enviamos la confirmación por email y te contactamos para coordinar el envío.</p>
       <p class="pago-result__ref" id="pedido-ref" style="display:none">Tu número de pedido: <strong id="pedido-num"></strong><small>Guardalo como referencia para cualquier consulta.</small></p>
-      <a href="index.html" class="btn btn--primary">Volver al inicio</a>
+      <a id="track-link" href="estado-pedido.html" class="btn btn--primary" style="display:none">Seguí tu pedido</a>
+      <a href="index.html" class="btn btn--ghost">Volver al inicio</a>
       <a href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20acabo%20de%20pagar%20mi%20pedido." class="btn btn--ghost" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
     </div>
   </section>
@@ -39,6 +40,9 @@
       if (ref) {
         document.getElementById('pedido-num').textContent = ref;
         document.getElementById('pedido-ref').style.display = 'block';
+        var tl = document.getElementById('track-link');
+        tl.href = 'estado-pedido.html?id=' + encodeURIComponent(ref);
+        tl.style.display = '';
       }
     })();
   </script>

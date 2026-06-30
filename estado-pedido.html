@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seguí tu pedido | Betta Soluciones</title>
+  <meta name="description" content="Consultá el estado de tu pedido de calefactores Betta con tu número de pedido: pago confirmado, en fabricación, despachado y entregado." />
+  <meta name="theme-color" content="#0f1115" />
+  <meta name="robots" content="noindex" />
+
+  <link rel="icon" type="image/svg+xml" href="img/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles-v2.css" />
+  <style>
+    .seg { min-height: 70vh; padding: 56px 0 70px; }
+    .seg__head { text-align: center; max-width: 640px; margin: 0 auto 28px; }
+    .seg__head h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; margin-bottom: 12px; }
+    .seg__head p { color: var(--muted); font-size: 1.06rem; }
+    .seg__card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 26px; max-width: 720px; margin: 0 auto; }
+    .seg__form { display: flex; gap: 10px; flex-wrap: wrap; }
+    .seg__form input { flex: 1; min-width: 200px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px;
+      color: var(--text); padding: 13px 16px; font-size: 1rem; font-family: inherit; letter-spacing: .5px; }
+    .seg__form input:focus { outline: none; border-color: var(--orange); }
+    .seg__note { margin-top: 14px; font-size: .92rem; min-height: 1.1em; }
+    .seg__note.is-error { color: #ff8a8a; }
+    .seg__note.is-muted { color: var(--muted); }
+
+    .result { margin-top: 26px; display: none; }
+    .result.show { display: block; animation: fade .35s var(--ease); }
+    @keyframes fade { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .result__meta { display: flex; flex-wrap: wrap; gap: 8px 22px; padding-bottom: 18px; border-bottom: 1px solid var(--line); margin-bottom: 26px; }
+    .result__meta div { font-size: .92rem; color: var(--muted); }
+    .result__meta strong { color: var(--text); display: block; font-size: 1rem; }
+    .result__pid strong { color: var(--orange-soft); letter-spacing: .5px; }
+
+    .pendiente { background: rgba(255,176,32,.10); border: 1px solid rgba(255,176,32,.32); color: #ffcf8a;
+      border-radius: 12px; padding: 14px 16px; font-size: .95rem; margin-bottom: 24px; }
+
+    .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; counter-reset: s; }
+    .step { position: relative; text-align: center; padding-top: 46px; }
+    .step::before { content: ""; position: absolute; top: 16px; left: 0; right: 0; height: 3px; background: var(--line); z-index: 0; }
+    .step:first-child::before { left: 50%; }
+    .step:last-child::before { right: 50%; }
+    .step__dot { position: absolute; top: 4px; left: 50%; transform: translateX(-50%); width: 28px; height: 28px; border-radius: 50%;
+      background: var(--surface-2); border: 3px solid var(--line); z-index: 1; display: grid; place-items: center; transition: .3s var(--ease); }
+    .step__dot svg { width: 14px; height: 14px; color: #fff; opacity: 0; }
+    .step__label { font-size: .86rem; color: var(--muted); font-weight: 500; padding: 0 4px; }
+    .step.is-done::before, .step.is-current::before { background: var(--orange); }
+    .step.is-done .step__dot { background: var(--orange); border-color: var(--orange); }
+    .step.is-done .step__dot svg { opacity: 1; }
+    .step.is-current .step__dot { background: var(--orange); border-color: var(--orange-soft);
+      box-shadow: 0 0 0 5px rgba(255,106,0,.18); animation: pulse 2s infinite; }
+    .step.is-current .step__label { color: var(--orange-soft); font-weight: 700; }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 5px rgba(255,106,0,.18); } 50% { box-shadow: 0 0 0 9px rgba(255,106,0,0); } }
+
+    .result__foot { margin-top: 28px; text-align: center; }
+    .result__foot p { color: var(--muted); font-size: .92rem; margin-bottom: 14px; }
+    @media (max-width: 520px) {
+      .step__label { font-size: .72rem; }
+      .step { padding-top: 42px; }
+    }
+  </style>
+</head>
+<body>
+  <!-- ===== Header ===== -->
+  <header class="hdr" id="top">
+    <div class="wrap hdr__inner">
+      <a class="brand" href="index.html" aria-label="Betta Soluciones — Inicio">
+        <img src="img/logo-betta.jpg" alt="Betta Soluciones" class="brand__logo"
+             onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" />
+        <span class="brand__fb" style="display:none">BETTA<strong>SOLUCIONES</strong></span>
+      </a>
+      <nav class="nav" aria-label="Navegación principal">
+        <ul class="nav__list" id="nav-list" style="position:static;max-height:none;background:none;border:0">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="mi-pedido.html" class="nav__cta">Comprar online</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="seg">
+    <div class="wrap">
+      <div class="seg__head">
+        <p class="eyebrow eyebrow--c"><span class="flag" aria-hidden="true"></span> Seguimiento de pedido</p>
+        <h1>Seguí tu pedido</h1>
+        <p>Ingresá tu número de pedido (lo recibiste por email, empieza con <strong style="color:var(--text)">BETTA-</strong>) y mirá en qué etapa está.</p>
+      </div>
+
+      <div class="seg__card">
+        <form class="seg__form" id="seg-form" novalidate>
+          <input type="text" id="pedido-id" name="pedido-id" placeholder="Ej: BETTA-MQYB6RH8-5A8Q" autocomplete="off" spellcheck="false" aria-label="Número de pedido" />
+          <button type="submit" class="btn btn--primary">Consultar estado</button>
+        </form>
+        <p class="seg__note is-muted" id="seg-note">El número de pedido es privado: solo quien lo tiene puede ver el estado.</p>
+
+        <div class="result" id="result">
+          <div class="result__meta">
+            <div class="result__pid">Pedido<strong id="r-pid">—</strong></div>
+            <div>Equipos<strong id="r-equipos">—</strong></div>
+            <div>Fecha del pedido<strong id="r-fecha">—</strong></div>
+          </div>
+
+          <div class="pendiente" id="r-pendiente" style="display:none"></div>
+
+          <div class="steps" id="r-steps" role="list" aria-label="Etapas del pedido"></div>
+
+          <div class="result__foot">
+            <p>¿Algo no coincide o tenés una duda con tu pedido?</p>
+            <a class="btn btn--glass" id="r-wa" href="https://wa.me/5493541628180" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="foot">
+    <div class="wrap foot__copy" style="border-top:0">© <span id="year"></span> Betta Soluciones · Córdoba, Argentina · <a href="index.html" style="color:inherit;text-decoration:underline">Inicio</a> · <a href="privacidad.html" style="color:inherit;text-decoration:underline">Privacidad</a></div>
+  </footer>
+
+  <a href="https://wa.me/5493541628180" class="wa-float" target="_blank" rel="noopener" aria-label="Escribinos por WhatsApp">
+    <svg viewBox="0 0 24 24" width="28" height="28" fill="#fff"><path d="M.5 23.5l1.65-6a11.6 11.6 0 1 1 4.36 4.3L.5 23.5zM6.9 19.6l.37.22a9.6 9.6 0 1 0-3.3-3.25l.24.38-1 3.6 3.7-.95zM17.5 14.4c-.24-.12-1.4-.7-1.62-.78s-.38-.12-.54.12-.62.78-.76.94-.28.18-.52.06a7.8 7.8 0 0 1-2.3-1.42 8.6 8.6 0 0 1-1.6-2c-.16-.28 0-.43.12-.55s.24-.28.36-.42a1.6 1.6 0 0 0 .24-.4.44.44 0 0 0 0-.42c0-.12-.54-1.3-.74-1.78s-.4-.4-.54-.4h-.46a.9.9 0 0 0-.64.3 2.7 2.7 0 0 0-.84 2 4.7 4.7 0 0 0 1 2.5 10.7 10.7 0 0 0 4.1 3.62c.57.25 1.02.4 1.37.5a3.3 3.3 0 0 0 1.5.1 2.5 2.5 0 0 0 1.62-1.14 2 2 0 0 0 .14-1.14c-.06-.1-.22-.16-.46-.28z"/></svg>
+  </a>
+
+  <script>
+    (function () {
+      var WEBHOOK = 'https://bettasoluciones-n8nn.cx2wou.easypanel.host/webhook/estado-pedido';
+      var $ = function (s) { return document.querySelector(s); };
+      var y = $('#year'); if (y) y.textContent = String(new Date().getFullYear());
+
+      var form = $('#seg-form');
+      var input = $('#pedido-id');
+      var note = $('#seg-note');
+      var result = $('#result');
+      var CHECK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>';
+
+      function setNote(msg, kind) {
+        note.textContent = msg;
+        note.className = 'seg__note' + (kind ? ' is-' + kind : '');
+      }
+
+      function render(data) {
+        $('#r-pid').textContent = data.pedido_id || '—';
+        $('#r-equipos').textContent = data.equipos || '—';
+        $('#r-fecha').textContent = data.fecha || '—';
+        var wa = $('#r-wa');
+        wa.href = 'https://wa.me/5493541628180?text=' + encodeURIComponent('Hola Betta, consulto por mi pedido ' + (data.pedido_id || '') + '.');
+
+        var pend = $('#r-pendiente');
+        if (data.pendiente) {
+          pend.style.display = 'block';
+          pend.textContent = data.metodo === 'transferencia'
+            ? 'Estamos esperando que se acredite tu transferencia. Apenas la confirmamos, arrancamos la fabricación.'
+            : 'Estamos esperando la confirmación de tu pago. Apenas se acredita, arrancamos la fabricación.';
+        } else {
+          pend.style.display = 'none';
+        }
+
+        var labels = data.pasos || ['Pago confirmado', 'En fabricación', 'Despachado', 'Entregado'];
+        var paso = data.paso || 0;
+        var steps = $('#r-steps');
+        steps.innerHTML = '';
+        for (var i = 0; i < labels.length; i++) {
+          var n = i + 1;
+          var cls = 'step';
+          if (n < paso) cls += ' is-done';
+          else if (n === paso) cls += (paso === labels.length ? ' is-done' : ' is-current');
+          var el = document.createElement('div');
+          el.className = cls;
+          el.setAttribute('role', 'listitem');
+          el.innerHTML = '<span class="step__dot">' + CHECK + '</span><span class="step__label">' + labels[i] + '</span>';
+          steps.appendChild(el);
+        }
+        result.classList.add('show');
+      }
+
+      function consultar(id) {
+        id = (id || '').trim().toUpperCase();
+        if (!id) { setNote('Escribí tu número de pedido para consultar.', 'error'); return; }
+        result.classList.remove('show');
+        setNote('Buscando tu pedido…', 'muted');
+        fetch(WEBHOOK + '?id=' + encodeURIComponent(id), { method: 'GET' })
+          .then(function (r) { return r.json(); })
+          .then(function (data) {
+            if (data && data.ok) {
+              setNote('', '');
+              render(data);
+            } else {
+              setNote('No encontramos un pedido con ese número. Revisá que esté completo (lo tenés en el email de confirmación) o escribinos por WhatsApp.', 'error');
+            }
+          })
+          .catch(function () {
+            setNote('No pudimos consultar el estado ahora. Probá de nuevo en un momento o escribinos por WhatsApp.', 'error');
+          });
+      }
+
+      form.addEventListener('submit', function (e) { e.preventDefault(); consultar(input.value); });
+
+      var qp = new URLSearchParams(location.search).get('id');
+      if (qp) { input.value = qp.toUpperCase(); consultar(qp); }
+    })();
+  </script>
+</body>
+</html>
