@@ -16,6 +16,9 @@
     .pago-result h1 { font-size: clamp(2rem,5vw,3rem); font-weight: 800; margin-bottom: 14px; }
     .pago-result p { color: var(--muted); font-size: 1.1rem; margin-bottom: 24px; }
     .pago-result .btn { margin: 6px; }
+    .pago-result__ref { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 18px; color: var(--text); font-size: 1rem; margin-bottom: 22px; }
+    .pago-result__ref strong { color: var(--orange-soft); font-size: 1.15rem; letter-spacing: .5px; }
+    .pago-result__ref small { display: block; color: var(--muted); font-size: .85rem; margin-top: 4px; }
   </style>
 </head>
 <body>
@@ -23,10 +26,21 @@
     <div class="pago-result__box">
       <div class="pago-result__ico pago-result__ico--ok">✓</div>
       <h1>¡Recibimos tu pago!</h1>
-      <p>Gracias por tu compra. Ya te enviamos la confirmación por email y arrancamos a preparar tu pedido. Te vamos a contactar para coordinar el envío.</p>
+      <p>Gracias por tu compra. Confirmamos tu pago y ya empezamos a preparar tu pedido. Te enviamos la confirmación por email y te contactamos para coordinar el envío.</p>
+      <p class="pago-result__ref" id="pedido-ref" style="display:none">Tu número de pedido: <strong id="pedido-num"></strong><small>Guardalo como referencia para cualquier consulta.</small></p>
       <a href="index.html" class="btn btn--primary">Volver al inicio</a>
       <a href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20acabo%20de%20pagar%20mi%20pedido." class="btn btn--ghost" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
     </div>
   </section>
+  <script>
+    (function () {
+      var p = new URLSearchParams(location.search);
+      var ref = p.get('external_reference') || '';
+      if (ref) {
+        document.getElementById('pedido-num').textContent = ref;
+        document.getElementById('pedido-ref').style.display = 'block';
+      }
+    })();
+  </script>
 </body>
 </html>
