@@ -1,6 +1,6 @@
 /* Betta Soluciones — Mi pedido (checkout). Vanilla JS, sin dependencias.
    Arma el pedido (por cantidad o por m³), calcula totales + IVA, y dispara
-   el pago: total por Mercado Pago (saldo o débito), o total con 10% OFF por transferencia.
+   el pago: seña 50% por Mercado Pago, o total con 5% OFF por transferencia.
    La plata y las credenciales viven SOLO en n8n; acá solo se manda el pedido. */
 (() => {
   'use strict';
@@ -15,6 +15,9 @@
     m4:  { nombre: 'Betta W-4000 · 4 kW',  kw: 4,  kcal: 5000,  neto: 590000 },
     m6:  { nombre: 'Betta 6 kW',           kw: 6,  kcal: 6700,  neto: 688000 },
     m15: { nombre: 'Betta 15 kW',          kw: 15, kcal: 16000, neto: 1380000 },
+    /* Soldadora: neto 188.000 + IVA (envío incluido). Se compra por cantidad,
+       no entra en el cálculo por m³ (sin kcal). */
+    sol: { nombre: 'Soldadora de Plásticos C1500', neto: 188000 },
   };
   const WEBHOOK = 'https://bettasoluciones-n8nn.cx2wou.easypanel.host/webhook/crear-pedido';
 
@@ -22,7 +25,7 @@
   const money = (n) => fmt.format(Math.round(n));
 
   /* ---- Estado del carrito ---- */
-  const cant = { m4: 0, m6: 0, m15: 0 };
+  const cant = { m4: 0, m6: 0, m15: 0, sol: 0 };
 
   /* ---- Año del footer + header con sombra ---- */
   const yearEl = $('#year');
@@ -68,7 +71,7 @@
       }
       const m3 = largo * ancho * alto;
       const calorias = m3 * 30; /* Córdoba: calorías necesarias = m³ × 30 */
-      const opciones = Object.entries(MODELOS).map(([key, m]) => {
+      const opciones = Object.entries(MODELOS).filter(([, m]) => m.kcal).map(([key, m]) => {
         const u = Math.max(1, Math.ceil(calorias / m.kcal));
         return { key, m, u };
       });
@@ -161,6 +164,7 @@
     const body = new URLSearchParams({
       metodo,
       cant_4kw: String(cant.m4), cant_6kw: String(cant.m6), cant_15kw: String(cant.m15),
+      cant_soldadora: String(cant.sol),
       neto: String(Math.round(t.neto)),
       iva: String(Math.round(t.iva)),
       total: String(Math.round(t.total)),
