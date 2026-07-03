@@ -7,7 +7,11 @@
   background: radial-gradient(720px 380px at 50% -10%, rgba(255,106,0,.30), transparent 62%),
               linear-gradient(180deg, var(--bg), var(--bg-2)); }
 .pedido-head .wrap { position: relative; z-index: 1; }
-.pedido-head h1 { font-size: clamp(2.2rem, 5vw, 3.6rem); font-weight: 800; margin: 6px auto 16px; max-width: 18ch; }
+.pedido-head h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); font-weight: 800; line-height: 1.02; letter-spacing: .5px; margin: 10px auto 18px; max-width: 16ch;
+  text-shadow: 0 2px 30px rgba(0,0,0,.5); }
+.pedido-head h1 .hl { background: linear-gradient(96deg, var(--orange) 10%, var(--orange-soft) 90%);
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 6px 26px rgba(255,106,0,.35)); }
 .pedido-head__sub { color: var(--muted); font-size: 1.1rem; max-width: 640px; margin: 0 auto; }
 .pedido-head__sub strong { color: var(--text); }
 
@@ -26,7 +30,8 @@
 .calc input { background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; color: var(--text);
   padding: 12px 14px; font-size: 1rem; font-family: inherit; }
 .calc input:focus { outline: none; border-color: var(--orange); }
-.calc .btn { padding: 12px 22px; }
+.calc .btn { padding: 12px 22px; background: rgba(255,106,0,.12); border-color: var(--orange); color: var(--orange-soft); font-weight: 700; }
+.calc .btn:hover { background: rgba(255,106,0,.22); color: var(--orange-soft); }
 .calc__out { margin-top: 14px; }
 .calc__hint { color: var(--muted); font-size: .92rem; margin-bottom: 10px; }
 .calc__hint strong { color: var(--text); }
