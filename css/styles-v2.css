@@ -79,8 +79,8 @@ h1,h2,h3,h4 { font-family: 'Anton', sans-serif; line-height: 1.1; letter-spacing
   box-shadow: 0 16px 40px rgba(0,158,227,.46), inset 0 1px 0 rgba(255,255,255,.6), inset 0 -3px 9px rgba(0,40,70,.36); }
 .btn--mp:active { transform: translateY(0) scale(1); }
 .btn--mp .mp-badge { width: 26px; height: 26px; flex: 0 0 auto; background: #fff; border-radius: 50%;
-  display: grid; place-items: center; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
-.btn--mp .mp-badge img { width: 21px; height: 21px; display: block; }
+  display: grid; place-items: center; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,.25); }
+.btn--mp .mp-badge img { width: 26px; height: 26px; object-fit: cover; display: block; }
 .btn--block { width: 100%; }
 
 /* ===== Header ===== */

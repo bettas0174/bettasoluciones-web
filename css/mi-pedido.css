@@ -43,7 +43,7 @@
   padding: 16px 0; border-top: 1px solid var(--line); }
 .prod:first-of-type { border-top: 0; }
 .prod img { width: 84px; height: 84px; object-fit: cover; border-radius: 12px; background: var(--bg-2); }
-.prod__info h3 { font-size: 1.2rem; font-weight: 700; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.prod__info h3 { font-family: 'Inter', system-ui, sans-serif; font-size: 1.25rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text); display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .prod__star { font-family: 'Inter', sans-serif; font-size: .7rem; font-weight: 600; color: var(--orange-soft);
   background: rgba(255,106,0,.12); border: 1px solid rgba(255,106,0,.3); padding: 2px 8px; border-radius: 999px; letter-spacing: .3px; }
 .prod__info p { color: var(--muted); font-size: .88rem; margin: 2px 0 6px; }
