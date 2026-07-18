@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Paginas privadas del flujo de compra (no indexar)
+Disallow: /pago-exito.html
+Disallow: /pago-pendiente.html
+Disallow: /pago-error.html
+Disallow: /estado-pedido.html
+
+Sitemap: https://bettasoluciones.com/sitemap.xml

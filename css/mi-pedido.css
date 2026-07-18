@@ -100,6 +100,11 @@
 .pago-note { margin-top: 12px; font-size: .9rem; min-height: 1.2em; }
 .pago-note.is-ok { color: #7ee0a8; }
 .pago-note.is-error { color: #ff8a8a; }
+.paycta-trust { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 8px 12px; margin: 16px 0 4px;
+  padding: 14px; background: var(--bg-2); border: 1px solid var(--line); border-radius: 12px; }
+.paycta-trust li { display: flex; align-items: center; gap: 8px; color: var(--text); font-size: .82rem; font-weight: 500; }
+.paycta-trust svg { width: 18px; height: 18px; flex-shrink: 0; color: var(--orange-soft); }
+
 .resumen__safe { margin-top: 12px; color: var(--muted); font-size: .78rem; line-height: 1.5; }
 
 .side-help { display: block; text-align: center; color: var(--orange-soft); font-size: .9rem; font-weight: 600; padding: 6px; }
