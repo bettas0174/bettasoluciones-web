@@ -278,9 +278,14 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
         </div>
         <div class="field"><label>Email</label><input id="buy-email" type="email" placeholder="tucorreo@email.com"></div>
         <div class="field" style="margin-bottom:8px">
-          <label>Cup&oacute;n de descuento (opcional)</label>
+          <label>Cup&oacute;n de descuento</label>
+          <div style="background:rgba(224,123,57,.08);border:1px dashed #e07b39;border-radius:10px;padding:10px;margin-bottom:8px">
+            <div style="font-size:.9rem;margin-bottom:8px">&#127903; &iquest;No ten&eacute;s cup&oacute;n? Gener&aacute; el tuyo de <b>-$34.999 OFF</b> &mdash; uno por persona, vence en 72&nbsp;h.</div>
+            <button type="button" id="gen-btn" class="btn btn--primary btn--sm btn--block">Generar mi cup&oacute;n</button>
+            <div id="gen-note" style="font-size:.82rem;margin-top:6px;min-height:1em"></div>
+          </div>
           <div style="display:flex;gap:8px">
-            <input id="buy-cupon" type="text" placeholder="Ej: HKSCFD" autocomplete="off" spellcheck="false" style="text-transform:uppercase;letter-spacing:.06em">
+            <input id="buy-cupon" type="text" placeholder="Peg&aacute; tu c&oacute;digo" autocomplete="off" spellcheck="false" style="text-transform:uppercase;letter-spacing:.06em">
             <button type="button" id="cupon-apply" class="btn btn--ghost btn--sm" style="flex:none">Aplicar</button>
           </div>
           <div id="cupon-note" style="font-size:.82rem;margin-top:6px;min-height:1em"></div>
@@ -292,7 +297,7 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
         <div class="co-row" id="s-rep-row" style="display:none"><span>Cartucho de repuesto</span><span id="s-rep">$67.760</span></div>
         <div class="co-row"><span>Cantidad</span><span id="s-qty">1</span></div>
         <div class="co-row"><span>Env&iacute;o</span><span style="color:var(--ok);font-weight:700">Incluido</span></div>
-        <div class="co-row" id="s-desc-row" style="display:none;color:var(--ok)"><span>Cup&oacute;n de descuento</span><span id="s-desc" style="font-weight:700">-$25.000</span></div>
+        <div class="co-row" id="s-desc-row" style="display:none;color:var(--ok)"><span>Cup&oacute;n de descuento</span><span id="s-desc" style="font-weight:700">-$34.999</span></div>
         <div class="co-row total"><span>Total</span><span class="big" id="s-total">$227.480</span></div>
         <div class="co-actions">
           <a class="btn btn--primary btn--block" href="#" id="s-mp">Pagar con Mercado Pago</a>
@@ -436,13 +441,35 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
       fetch(WEBHOOK,{method:"POST",body:new URLSearchParams({ solo_validar:"1", cupon:code })})
         .then(function(r){return r.json().catch(function(){return {};});})
         .then(function(d){
-          if(d && d.valido){ cuponOK=true; cuponCode=code; cuponDesc=Number(d.descuento)||25000; setCup("Cupón aplicado: -"+money(cuponDesc),"ok"); }
+          if(d && d.valido){ cuponOK=true; cuponCode=code; cuponDesc=Number(d.descuento)||34999; setCup("Cupón aplicado: -"+money(cuponDesc),"ok"); }
           else { cuponOK=false; cuponCode=""; setCup("Ese cupón no es válido o ya fue usado.","err"); }
           upd();
         })
         .catch(function(){ cuponOK=false; cuponCode=""; setCup("No pudimos verificar el cupón. Probá de nuevo.","err"); upd(); });
     }); }
     if(cuponInput){ cuponInput.addEventListener("input",function(){ if(cuponOK){ cuponOK=false; cuponCode=""; setCup("",""); upd(); } }); }
+
+    /* Generar cupon (1 por usuario) -> autocompleta y aplica */
+    var GEN='https://bettasoluciones-n8nn.cx2wou.easypanel.host/webhook/generar-cupon';
+    var genBtn=document.getElementById("gen-btn"), genNote=document.getElementById("gen-note");
+    function setGen(m,kind){ if(genNote){ genNote.textContent=m; genNote.style.color= kind==='ok'?'var(--ok)': kind==='err'?'#c0392b':'var(--muted)'; } }
+    if(genBtn){ genBtn.addEventListener("click",function(){
+      var email=val("buy-email"), tel=val("buy-tel");
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)||!tel){ setGen("Completá tu email y teléfono (arriba) para generar el cupón.","err"); return; }
+      var prev=genBtn.textContent; genBtn.disabled=true; genBtn.textContent="Generando…"; setGen("Generando tu cupón…","");
+      fetch(GEN,{method:"POST",body:new URLSearchParams({ email:email, telefono:tel })})
+        .then(function(r){ return r.json().catch(function(){return {};}); })
+        .then(function(d){
+          genBtn.disabled=false; genBtn.textContent=prev;
+          if(d && d.valido && d.codigo){
+            cuponInput.value=d.codigo;
+            var vent = d.vence_at ? (" · vence "+new Date(d.vence_at).toLocaleString("es-AR",{day:"2-digit",month:"2-digit",hour:"2-digit",minute:"2-digit"})) : "";
+            setGen((d.nuevo?"¡Tu cupón: ":"Ya tenías uno activo: ")+d.codigo+vent,"ok");
+            if(cuponBtn){ cuponBtn.click(); }
+          } else { setGen((d&&d.msg)||"No pudimos generar el cupón. Probá de nuevo.","err"); }
+        })
+        .catch(function(){ genBtn.disabled=false; genBtn.textContent=prev; setGen("No pudimos generar el cupón. Probá de nuevo.","err"); });
+    }); }
 
     /* Pago real: POST al webhook de la soldadora -> init_point de Mercado Pago (con cupon) */
     if(mp){ mp.addEventListener("click",function(e){
