@@ -133,8 +133,11 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
   .co-card h3{font-size:1.15rem;font-weight:800;margin-bottom:16px}
   .field{margin-bottom:12px}
   .field label{display:block;font-size:.7rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
-  .field input{width:100%;padding:12px;border:1.5px solid var(--line-2);border-radius:12px;font:inherit;font-size:1rem;background:#fff;color:var(--ink)}
-  .field input:focus{outline:none;border-color:var(--orange)}
+  .field input,.field select{width:100%;padding:12px;border:1.5px solid var(--line-2);border-radius:12px;font:inherit;font-size:1rem;background:#fff;color:var(--ink)}
+  .field input:focus,.field select:focus{outline:none;border-color:var(--orange)}
+  .field select{appearance:none;-webkit-appearance:none;cursor:pointer;padding-right:34px;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 13px center}
   .co-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
   .addon{display:flex;align-items:center;gap:11px;background:var(--band);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:6px;font-size:.92rem}
   .addon input{width:18px;height:18px;accent-color:var(--orange);flex:none}
@@ -240,14 +243,35 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
         <h3>Tus datos</h3>
         <div aria-hidden="true" style="position:absolute;left:-9999px"><label>No completar<input type="text" id="empresa_web" tabindex="-1" autocomplete="off"></label></div>
         <div class="co-2">
-          <div class="field"><label>Cantidad</label><input id="buy-qty" type="number" min="1" step="1" value="1"></div>
-          <div class="field"><label>Localidad</label><input id="buy-loc" type="text" placeholder="Ciudad / Provincia"></div>
+          <div class="field"><label>Nombre y apellido</label><input id="buy-nombre" type="text" placeholder="Como figura en tu DNI" autocomplete="name"></div>
+          <div class="field"><label>DNI</label><input id="buy-dni" type="text" inputmode="numeric" placeholder="Sin puntos" autocomplete="off"></div>
         </div>
         <div class="co-2">
-          <div class="field"><label>Nombre</label><input id="buy-nombre" type="text" placeholder="Nombre y apellido"></div>
-          <div class="field"><label>Tel&eacute;fono</label><input id="buy-tel" type="tel" placeholder="Cel / WhatsApp"></div>
+          <div class="field"><label>Tel&eacute;fono</label><input id="buy-tel" type="tel" placeholder="Cel / WhatsApp" autocomplete="tel"></div>
+          <div class="field"><label>Email</label><input id="buy-email" type="email" placeholder="tucorreo@email.com" autocomplete="email"></div>
         </div>
-        <div class="field"><label>Email</label><input id="buy-email" type="email" placeholder="tucorreo@email.com"></div>
+        <div class="field"><label>Direcci&oacute;n de entrega</label><input id="buy-dir" type="text" placeholder="Calle y n&uacute;mero, piso/depto" autocomplete="street-address"></div>
+        <div class="co-2">
+          <div class="field"><label>Localidad</label><input id="buy-loc" type="text" placeholder="Ciudad" autocomplete="address-level2"></div>
+          <div class="field"><label>Provincia</label>
+            <select id="buy-prov" autocomplete="address-level1">
+              <option value="">Eleg&iacute; una</option>
+              <option>Buenos Aires</option><option>CABA</option><option>Catamarca</option>
+              <option>Chaco</option><option>Chubut</option><option>C&oacute;rdoba</option>
+              <option>Corrientes</option><option>Entre R&iacute;os</option><option>Formosa</option>
+              <option>Jujuy</option><option>La Pampa</option><option>La Rioja</option>
+              <option>Mendoza</option><option>Misiones</option><option>Neuqu&eacute;n</option>
+              <option>R&iacute;o Negro</option><option>Salta</option><option>San Juan</option>
+              <option>San Luis</option><option>Santa Cruz</option><option>Santa Fe</option>
+              <option>Santiago del Estero</option><option>Tierra del Fuego</option><option>Tucum&aacute;n</option>
+            </select>
+          </div>
+        </div>
+        <div class="co-2">
+          <div class="field"><label>C&oacute;digo postal</label><input id="buy-cp" type="text" inputmode="numeric" placeholder="Ej: 5000" autocomplete="postal-code"></div>
+          <div class="field"><label>Cantidad</label><input id="buy-qty" type="number" min="1" step="1" value="1"></div>
+        </div>
+        <p style="font-size:.82rem;color:var(--muted);margin:-2px 0 12px">&#128230; El DNI y el c&oacute;digo postal los pide el transporte para emitir la etiqueta de env&iacute;o. No se usan para nada m&aacute;s.</p>
         <div class="field" style="margin-bottom:8px">
           <label>Cup&oacute;n de descuento</label>
           <div style="background:rgba(224,123,57,.08);border:1px dashed #e07b39;border-radius:10px;padding:10px;margin-bottom:8px">
@@ -488,13 +512,20 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
     if(mp){ mp.addEventListener("click",function(e){
       e.preventDefault();
       var nombre=val("buy-nombre"), tel=val("buy-tel"), email=val("buy-email"), loc=val("buy-loc"), hp=val("empresa_web");
+      var dni=val("buy-dni").replace(/[.\s]/g,""), dir=val("buy-dir"), prov=val("buy-prov"), cp=val("buy-cp").trim();
       if(!nombre||!tel){ setNote("Completá tu nombre y teléfono.",true); return; }
       if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setNote("Ingresá un email válido (ej: nombre@gmail.com).",true); return; }
+      if(!/^\d{7,8}$/.test(dni)){ setNote("Ingresá tu DNI sin puntos (7 u 8 números).",true); return; }
+      if(dir.length<5){ setNote("Ingresá la dirección de entrega con calle y número.",true); return; }
+      if(!loc){ setNote("Ingresá la localidad de entrega.",true); return; }
+      if(!prov){ setNote("Elegí la provincia.",true); return; }
+      if(!/^\d{4}$/.test(cp) && !/^[A-Za-z]\d{4}[A-Za-z]{3}$/.test(cp)){ setNote("Ingresá un código postal válido (ej: 5000).",true); return; }
       var n=Math.max(1,parseInt(qty.value||"1",10)), repOn=rep.checked;
       var total=UNIT*n+(repOn?REP*n:0); if(cuponOK){ total-=Math.min(total,cuponDesc); }
       try{ if(window.fbq) fbq('track','InitiateCheckout',{value:total,currency:'ARS',content_ids:['BETTA-C1500'],content_type:'product',num_items:n}); }catch(_){}
       var body=new URLSearchParams({ cant_soldadora:String(n), cant_rep_c: repOn?String(n):"0",
         cupon: cuponOK?cuponCode:"", nombre:nombre, email:email, telefono:tel, localidad:loc, empresa_web:hp,
+        dni:dni, direccion:dir, provincia:prov, cp:cp.toUpperCase(),
         fbp:getCookie("_fbp"), fbc:getFbc() });
       var prev=mp.textContent; mp.textContent="Procesando…"; setNote("Generando tu pago…");
       fetch(WEBHOOK,{method:"POST",body:body})
