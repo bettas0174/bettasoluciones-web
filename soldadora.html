@@ -92,6 +92,18 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
   .price{font-size:2.4rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
   .price small{font-size:.85rem;font-weight:600;color:var(--muted)}
   .price-note{font-size:.92rem;color:var(--ok);font-weight:700;margin-bottom:20px}
+  /* cuotas: sin monto, porque el plan y el interes los define el banco de cada comprador */
+  .price-cuotas{display:inline-block;font-size:.98rem;font-weight:800;line-height:1.35;
+    color:var(--ink);background:rgba(242,106,27,.12);border:1.5px solid rgba(242,106,27,.35);
+    padding:9px 16px;border-radius:999px;margin-bottom:10px}
+  .price-cuotas b{color:var(--orange)}
+  .hero .price-cuotas{color:#fff;background:rgba(242,106,27,.20);border-color:rgba(242,106,27,.55)}
+  .hero .price-cuotas b{color:var(--orange-soft)}
+  .co-cuotas{display:flex;align-items:flex-start;gap:9px;font-size:.95rem;font-weight:800;color:var(--ink);
+    background:rgba(242,106,27,.10);border:1.5px solid rgba(242,106,27,.30);
+    padding:10px 14px;border-radius:12px;margin-top:12px}
+  .co-cuotas b{color:var(--orange)}
+  .co-cuotas small{display:block;font-size:.78rem;font-weight:600;color:var(--muted);margin-top:2px}
   .hero-cta{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:18px}
   .hero-assur{display:flex;gap:18px;flex-wrap:wrap;font-size:.88rem;color:var(--muted);font-weight:600}
   .hero-assur span{display:flex;align-items:center;gap:7px}
@@ -215,7 +227,8 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
       <div class="price-row">
         <div class="price">$227.480 <small>env&iacute;o incluido</small></div>
       </div>
-      <div class="price-note">&#10003; Env&iacute;o incluido &middot; Cuotas con Mercado Pago</div>
+      <div class="price-cuotas">&#128179; Hasta <b>12 cuotas</b> con tarjeta de cr&eacute;dito</div>
+      <div class="price-note">&#10003; Env&iacute;o incluido &middot; Ves tus cuotas y el inter&eacute;s antes de confirmar</div>
       <div class="hero-cta">
         <a class="btn btn--primary" href="#comprar">Comprar ahora</a>
         <a class="btn btn--wa" href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20quiero%20consultar%20por%20la%20soldadora%20de%20pl%C3%A1sticos" target="_blank" rel="noopener">Consultar por WhatsApp</a>
@@ -294,6 +307,7 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
         <div class="co-row"><span>Env&iacute;o</span><span style="color:var(--ok);font-weight:700">Incluido</span></div>
         <div class="co-row" id="s-desc-row" style="display:none;color:var(--ok)"><span>Cup&oacute;n de descuento</span><span id="s-desc" style="font-weight:700">-$34.999</span></div>
         <div class="co-row total"><span>Total</span><span class="big" id="s-total">$227.480</span></div>
+        <div class="co-cuotas">&#128179; <span>Hasta <b>12 cuotas</b> con tarjeta de cr&eacute;dito<small>Mercado Pago te muestra tus cuotas y el inter&eacute;s antes de confirmar.</small></span></div>
         <div class="co-actions">
           <a class="btn btn--primary btn--block" href="#" id="s-mp">Pagar con Mercado Pago</a>
           <a class="btn btn--wa btn--block" href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20quiero%20comprar%20la%20soldadora%20de%20pl%C3%A1sticos" target="_blank" rel="noopener">Coordinar por WhatsApp</a>
@@ -363,7 +377,7 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
       <details><summary>&iquest;Viene lista para usar?</summary><p>S&iacute;. Incluye la soldadora de pl&aacute;sticos, la resistencia especial y el cartucho. La enchuf&aacute;s y trabaj&aacute;s.</p></details>
       <details><summary>&iquest;Tiene garant&iacute;a?</summary><p>6 meses de garant&iacute;a respondida directamente por Betta, que somos el fabricante.</p></details>
       <details><summary>&iquest;Hacen env&iacute;os?</summary><p>S&iacute;, a todo el pa&iacute;s, y en la soldadora el env&iacute;o est&aacute; <strong>incluido</strong> en el precio.</p></details>
-      <details><summary>&iquest;Puedo pagar en cuotas?</summary><p>S&iacute;, con Mercado Pago pod&eacute;s pagar con tarjeta en cuotas, d&eacute;bito o efectivo.</p></details>
+      <details><summary>&iquest;Puedo pagar en cuotas?</summary><p>S&iacute;. Con tarjeta de cr&eacute;dito pod&eacute;s pagar hasta en 12 cuotas. La cantidad de cuotas y el inter&eacute;s los define tu banco seg&uacute;n tu tarjeta: Mercado Pago te muestra el detalle exacto antes de que confirmes el pago. Tambi&eacute;n pod&eacute;s pagar con d&eacute;bito o en efectivo.</p></details>
     </div>
   </div>
 </section>
