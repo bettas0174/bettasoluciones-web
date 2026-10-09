@@ -201,6 +201,35 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
   @media(min-width:860px){.buybar{left:22px;right:auto;bottom:22px;max-width:460px;border-radius:16px;border:1px solid rgba(255,255,255,.10)}body.bb-on .fab{bottom:22px}}
   .fab:hover{transform:scale(1.06)}
   .fab svg{width:34px;height:34px;fill:#fff}
+  /* ---- 2026-10-09: mejoras de conversion ---- */
+  /* cifras del anuncio en el hero (mismo lenguaje que la ficha azul) */
+  .specs{display:flex;gap:26px;margin:2px 0 18px}
+  .specs div{display:flex;flex-direction:column}
+  .specs b{font-size:2.1rem;font-weight:800;letter-spacing:-.02em;line-height:1;color:#fff}
+  .specs b small{font-size:.5em;font-weight:800;color:var(--orange-soft);margin-left:2px}
+  .specs span{font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#a79d92;margin-top:6px}
+  .price-transfer{font-size:1rem;font-weight:700;color:#fff;margin:2px 0 12px}
+  .price-transfer b{color:#7fe0a8;font-size:1.15em}
+  /* en celular la maquina va primero: es lo que la persona vio en el anuncio */
+  @media(max-width:900px){.hero{padding-top:18px}.hero-visual{order:-1;aspect-ratio:16/11}.hero-grid{gap:20px}.hero h1{margin:8px 0 10px}.hero .lead{margin-bottom:14px}}
+  /* "Que incluye": la negrita y el texto quedaban en dos columnas */
+  .incl li{display:block;position:relative;padding-left:34px}
+  .incl li::before{position:absolute;left:0;top:2px}
+  .incl-media{aspect-ratio:4/5}
+  .incl-media img{object-fit:cover;padding:0}
+  /* checkout por pasos */
+  .steps{display:flex;gap:6px;margin:0 0 16px;font-size:.78rem;font-weight:700}
+  .steps span{flex:1;text-align:center;padding:8px 4px;border-radius:999px;background:var(--band);color:var(--muted);border:1px solid var(--line);white-space:nowrap}
+  .steps span.on{background:var(--orange);color:#fff;border-color:var(--orange)}
+  .steps span.done{background:rgba(31,157,85,.12);color:var(--ok);border-color:transparent}
+  .step[hidden]{display:none}
+  .step-sum{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:.92rem;background:var(--band);border-radius:12px;padding:10px 12px;margin-bottom:14px}
+  .step-sum button{background:none;border:0;color:var(--orange);font:inherit;font-weight:700;cursor:pointer;flex:none}
+  .step-hint{font-size:.84rem;color:var(--muted);margin:10px 0 0;text-align:center}
+  .btn--transfer{background:#0f5132;color:#fff}
+  .pay-or{display:flex;align-items:center;gap:10px;font-size:.74rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+  .pay-or::before,.pay-or::after{content:"";flex:1;height:1px;background:var(--line)}
+  .transfer-note{font-size:.8rem;color:var(--muted);text-align:center;margin-top:-4px}
 </style>
 
 <!-- BARRA DE PROMESAS -->
@@ -221,14 +250,19 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
   <canvas class="stars" aria-hidden="true"></canvas>
   <div class="wrap hero-grid">
     <div>
-      <span class="eyebrow">Soldadora de pl&aacute;sticos C1500 &middot; Fabricante directo</span>
-      <h1>Sold&aacute; <span class="hl">todo tipo de pl&aacute;sticos</span> como un profesional.</h1>
-      <p class="lead">Soldadora el&eacute;ctrica para pl&aacute;sticos, con resistencia especial y control de temperatura. Repar&aacute; paragolpes, tanques, ca&ntilde;er&iacute;as y piezas que antes tirabas. Lista para trabajar.</p>
+      <span class="eyebrow">C1500 &middot; Fabricante directo &middot; C&oacute;rdoba</span>
+      <h1>Soldadora de <span class="hl">pl&aacute;sticos</span></h1>
+      <p class="lead">Paragolpes, tanques y ca&ntilde;er&iacute;as. Suelda PP, ABS, PVC, PE, PA66, POM y dem&aacute;s termopl&aacute;sticos.</p>
+      <div class="specs">
+        <div><b>1500<small>W</small></b><span>Potencia</span></div>
+        <div><b>400<small>&deg;</small></b><span>Temperatura m&aacute;x.</span></div>
+      </div>
       <div class="price-row">
         <div class="price">$227.480 <small>env&iacute;o incluido</small></div>
       </div>
       <div class="price-cuotas">&#128179; Hasta <b>12 cuotas</b> con tarjeta de cr&eacute;dito</div>
-      <div class="price-note">&#10003; Env&iacute;o incluido &middot; Ves tus cuotas y el inter&eacute;s antes de confirmar</div>
+      <div class="price-transfer">&#127974; Por transferencia bancaria: <b>$185.000</b></div>
+      <div class="price-note">&#10003; Env&iacute;o incluido a todo el pa&iacute;s &middot; Ves tus cuotas antes de confirmar</div>
       <div class="hero-cta">
         <a class="btn btn--primary" href="#comprar">Comprar ahora</a>
         <a class="btn btn--wa" href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20quiero%20consultar%20por%20la%20soldadora%20de%20pl%C3%A1sticos" target="_blank" rel="noopener">Consultar por WhatsApp</a>
@@ -249,20 +283,31 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
     <div class="sec-head">
       <span class="eyebrow">Compr&aacute; online</span>
       <h2>Llev&aacute;la ahora <span class="hl">en 2 minutos</span>.</h2>
-      <p>Pag&aacute;s con Mercado Pago (tarjeta, cuotas o efectivo) o coordin&aacute;s por WhatsApp. Env&iacute;o incluido.</p>
+      <p>Tarjeta en cuotas, d&eacute;bito o efectivo con Mercado Pago, o transferencia bancaria. Env&iacute;o incluido.</p>
     </div>
     <div class="co-grid">
       <div class="co-card">
-        <h3>Tus datos</h3>
+        <div class="steps" aria-hidden="true"><span id="st-1" class="on">1. Contacto</span><span id="st-2">2. Env&iacute;o</span><span id="st-3">3. Pago</span></div>
         <div aria-hidden="true" style="position:absolute;left:-9999px"><label>No completar<input type="text" id="empresa_web" tabindex="-1" autocomplete="off"></label></div>
-        <div class="co-2">
+
+        <!-- PASO 1: solo lo minimo para contactarte -->
+        <div class="step" id="step-1">
+          <h3>&iquest;C&oacute;mo te contactamos?</h3>
           <div class="field"><label>Nombre y apellido</label><input id="buy-nombre" type="text" placeholder="Como figura en tu DNI" autocomplete="name"></div>
-          <div class="field"><label>DNI</label><input id="buy-dni" type="text" inputmode="numeric" placeholder="Sin puntos" autocomplete="off"></div>
+          <div class="co-2">
+            <div class="field"><label>Tel&eacute;fono</label><input id="buy-tel" type="tel" placeholder="Cel / WhatsApp" autocomplete="tel"></div>
+            <div class="field"><label>Email</label><input id="buy-email" type="email" placeholder="tucorreo@email.com" autocomplete="email"></div>
+          </div>
+          <div id="step1-note" role="status" style="font-size:.85rem;min-height:1.1em;color:#c0392b;margin-bottom:6px"></div>
+          <button type="button" id="step1-next" class="btn btn--primary btn--block">Continuar con el env&iacute;o &rarr;</button>
+          <p class="step-hint">&#128274; Tus datos se usan solo para tu pedido y el env&iacute;o.</p>
         </div>
-        <div class="co-2">
-          <div class="field"><label>Tel&eacute;fono</label><input id="buy-tel" type="tel" placeholder="Cel / WhatsApp" autocomplete="tel"></div>
-          <div class="field"><label>Email</label><input id="buy-email" type="email" placeholder="tucorreo@email.com" autocomplete="email"></div>
-        </div>
+
+        <!-- PASO 2: datos que pide el transporte -->
+        <div class="step" id="step-2" hidden>
+          <div class="step-sum"><span id="step1-sum"></span><button type="button" id="step1-edit">Editar</button></div>
+          <h3>&iquest;A d&oacute;nde te la mandamos?</h3>
+        <div class="field"><label>DNI</label><input id="buy-dni" type="text" inputmode="numeric" placeholder="Sin puntos" autocomplete="off"></div>
         <div class="field"><label>Direcci&oacute;n de entrega</label><input id="buy-dir" type="text" placeholder="Calle y n&uacute;mero, piso/depto" autocomplete="street-address"></div>
         <div class="co-2">
           <div class="field"><label>Localidad</label><input id="buy-loc" type="text" placeholder="Ciudad" autocomplete="address-level2"></div>
@@ -298,7 +343,8 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
           </div>
           <div id="cupon-note" style="font-size:.82rem;margin-top:6px;min-height:1em"></div>
         </div>
-        <label class="addon"><input type="checkbox" id="buy-rep"> Sumar <strong>&nbsp;cartucho de repuesto</strong> <b>+$67.760</b></label>
+        <label class="addon"><input type="checkbox" id="buy-rep"> <span>Sumar <strong>cartucho de repuesto</strong></span> <b>+$67.760</b></label>
+        </div><!-- /step-2 -->
       </div>
       <div class="co-sum">
         <div class="co-row"><span id="s-name">Soldadora C1500</span><span id="s-unit">$227.480</span></div>
@@ -310,11 +356,13 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
         <div class="co-cuotas">&#128179; <span>Hasta <b>12 cuotas</b> con tarjeta de cr&eacute;dito<small>Mercado Pago te muestra tus cuotas y el inter&eacute;s antes de confirmar.</small></span></div>
         <div class="co-actions">
           <a class="btn btn--primary btn--block" href="#" id="s-mp">Pagar con Mercado Pago</a>
-          <a class="btn btn--wa btn--block" href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20quiero%20comprar%20la%20soldadora%20de%20pl%C3%A1sticos" target="_blank" rel="noopener">Coordinar por WhatsApp</a>
+          <div class="pay-or">o</div>
+          <a class="btn btn--transfer btn--block" href="#" id="s-tr">Transferencia: $185.000</a>
+          <div class="transfer-note">Te pasamos los datos bancarios por WhatsApp para confirmar el pedido.</div>
         </div>
         <div id="pago-note" role="status" style="font-size:.85rem;margin-top:10px;min-height:1.1em;color:var(--muted)"></div>
-        <div class="co-pay"><span>Tarjeta</span><span>Cuotas</span><span>D&eacute;bito</span><span>Efectivo</span></div>
-        <div class="co-note">&#128274; Pago protegido con Mercado Pago. Env&iacute;o a todo el pa&iacute;s incluido.</div>
+        <div class="co-pay"><span>Tarjeta</span><span>Cuotas</span><span>D&eacute;bito</span><span>Efectivo</span><span>Transferencia</span></div>
+        <div class="co-note">&#128274; Pago protegido con Mercado Pago. Env&iacute;o a todo el pa&iacute;s incluido. &iquest;Dudas? <a href="https://wa.me/5493541628180?text=Hola%20Betta%2C%20tengo%20una%20consulta%20por%20la%20soldadora%20de%20pl%C3%A1sticos" target="_blank" rel="noopener">Escribinos por WhatsApp</a> o <a href="tel:+5493541628180">llamanos</a>.</div>
       </div>
     </div>
   </div>
@@ -378,6 +426,7 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
       <details><summary>&iquest;Tiene garant&iacute;a?</summary><p>6 meses de garant&iacute;a respondida directamente por Betta, que somos el fabricante.</p></details>
       <details><summary>&iquest;Hacen env&iacute;os?</summary><p>S&iacute;, a todo el pa&iacute;s, y en la soldadora el env&iacute;o est&aacute; <strong>incluido</strong> en el precio.</p></details>
       <details><summary>&iquest;Puedo pagar en cuotas?</summary><p>S&iacute;. Con tarjeta de cr&eacute;dito pod&eacute;s pagar hasta en 12 cuotas. La cantidad de cuotas y el inter&eacute;s los define tu banco seg&uacute;n tu tarjeta: Mercado Pago te muestra el detalle exacto antes de que confirmes el pago. Tambi&eacute;n pod&eacute;s pagar con d&eacute;bito o en efectivo.</p></details>
+      <details><summary>&iquest;Cu&aacute;nto sale por transferencia?</summary><p>Por transferencia bancaria sale <b>$185.000</b>, con env&iacute;o incluido. Complet&aacute;s tus datos, toc&aacute;s &laquo;Transferencia&raquo; y te escribimos por WhatsApp con los datos bancarios para confirmar el pedido. Despachamos cuando se acredita.</p></details>
     </div>
   </div>
 </section>
@@ -522,19 +571,81 @@ fbq('init','650000258030014');fbq('track','PageView');fbq('track','ViewContent',
         .catch(function(){ genBtn.disabled=false; genBtn.textContent=prev; setGen("No pudimos generar el cupón. Probá de nuevo.","err"); });
     }); }
 
+    /* Checkout en 2 pasos: 1) contacto (3 campos)  2) datos que pide el transporte */
+    var TRANSFER=185000, WA="5493541628180";
+    var s1=document.getElementById("step-1"), s2=document.getElementById("step-2");
+    var s1note=document.getElementById("step1-note"), coCard=document.querySelector("#comprar .co-card");
+    var addToCartSent=false;
+    function stepMark(n){ ["st-1","st-2","st-3"].forEach(function(id,i){ var el=document.getElementById(id); if(el) el.className = (i+1<n)?"done":(i+1===n?"on":""); }); }
+    function step1Msg(){
+      var email=val("buy-email");
+      if(!val("buy-nombre")) return "Completá tu nombre y apellido.";
+      if(val("buy-tel").replace(/\D/g,"").length<8) return "Completá un teléfono válido.";
+      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return "Ingresá un email válido (ej: nombre@gmail.com).";
+      return "";
+    }
+    function goStep(n){
+      if(!s1||!s2) return;
+      s1.hidden = n!==1; s2.hidden = n!==2; stepMark(n);
+      if(n===2){
+        document.getElementById("step1-sum").textContent = val("buy-nombre")+" · "+val("buy-tel");
+        if(!addToCartSent){ addToCartSent=true; try{ if(window.fbq) fbq('track','AddToCart',{value:UNIT,currency:'ARS',content_ids:['BETTA-C1500'],content_type:'product'}); }catch(_){} }
+      }
+      if(coCard){ var y=coCard.getBoundingClientRect().top+window.scrollY-84; window.scrollTo({top:y,behavior:"smooth"}); }
+    }
+    var nextBtn=document.getElementById("step1-next"), editBtn=document.getElementById("step1-edit");
+    if(nextBtn){ nextBtn.addEventListener("click",function(){
+      var m=step1Msg(); if(s1note) s1note.textContent=m;
+      if(!m){ goStep(2); setTimeout(function(){ var d=document.getElementById("buy-dni"); if(d) d.focus({preventScroll:true}); },350); }
+    }); }
+    if(editBtn){ editBtn.addEventListener("click",function(){ goStep(1); }); }
+
+    /* Junta y valida todo; si falta algo, lleva al paso que corresponde. Devuelve null si no esta completo. */
+    function collect(){
+      var m1=step1Msg();
+      if(m1){ goStep(1); if(s1note) s1note.textContent=m1; setNote(m1,true); return null; }
+      if(s2 && s2.hidden){ goStep(2); setNote("Completá los datos de envío para terminar.",true); return null; }
+      var d={ nombre:val("buy-nombre"), tel:val("buy-tel"), email:val("buy-email"), loc:val("buy-loc"), hp:val("empresa_web"),
+        dni:val("buy-dni").replace(/[.\s]/g,""), dir:val("buy-dir"), prov:val("buy-prov"), cp:val("buy-cp").trim() };
+      var m2 = !/^\d{7,8}$/.test(d.dni) ? "Ingresá tu DNI sin puntos (7 u 8 números)."
+        : d.dir.length<5 ? "Ingresá la dirección de entrega con calle y número."
+        : !d.loc ? "Ingresá la localidad de entrega."
+        : !d.prov ? "Elegí la provincia."
+        : (!/^\d{4}$/.test(d.cp) && !/^[A-Za-z]\d{4}[A-Za-z]{3}$/.test(d.cp)) ? "Ingresá un código postal válido (ej: 5000)." : "";
+      if(m2){ setNote(m2,true); return null; }
+      d.n=Math.max(1,parseInt(qty.value||"1",10)); d.repOn=rep.checked;
+      stepMark(3);
+      return d;
+    }
+
+    /* Transferencia: $185.000 por unidad, se confirma por WhatsApp con los datos ya cargados */
+    var trBtn=document.getElementById("s-tr");
+    if(trBtn){ trBtn.addEventListener("click",function(e){
+      e.preventDefault();
+      var d=collect(); if(!d) return;
+      var total=TRANSFER*d.n + (d.repOn?REP*d.n:0);
+      try{ if(window.fbq) fbq('track','InitiateCheckout',{value:total,currency:'ARS',content_ids:['BETTA-C1500'],content_type:'product',num_items:d.n}); }catch(_){}
+      var msg="Hola Betta, quiero comprar la Soldadora de plásticos C1500 por transferencia bancaria.\n\n"+
+        "Cantidad: "+d.n+(d.repOn?" (con cartucho de repuesto)":"")+"\nTotal: "+money(total)+"\n\n"+
+        "Mis datos:\nNombre: "+d.nombre+"\nDNI: "+d.dni+"\nTeléfono: "+d.tel+"\nEmail: "+d.email+
+        "\nEnvío: "+d.dir+", "+d.loc+", "+d.prov+" (CP "+d.cp.toUpperCase()+")\n\n¿Me pasan los datos para transferir?";
+      setNote("Abriendo WhatsApp con tu pedido…");
+      window.location.href="https://wa.me/"+WA+"?text="+encodeURIComponent(msg);
+    }); }
+
+    /* Clics a WhatsApp como "Contacto" en el pixel (antes no se median) */
+    document.addEventListener("click",function(ev){
+      var a=ev.target && ev.target.closest ? ev.target.closest('a[href*="wa.me"]') : null;
+      if(!a) return;
+      try{ if(window.fbq) fbq('track','Contact',{content_name:'whatsapp'}); }catch(_){}
+    },true);
+
     /* Pago real: POST al webhook de la soldadora -> init_point de Mercado Pago (con cupon) */
     if(mp){ mp.addEventListener("click",function(e){
       e.preventDefault();
-      var nombre=val("buy-nombre"), tel=val("buy-tel"), email=val("buy-email"), loc=val("buy-loc"), hp=val("empresa_web");
-      var dni=val("buy-dni").replace(/[.\s]/g,""), dir=val("buy-dir"), prov=val("buy-prov"), cp=val("buy-cp").trim();
-      if(!nombre||!tel){ setNote("Completá tu nombre y teléfono.",true); return; }
-      if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ setNote("Ingresá un email válido (ej: nombre@gmail.com).",true); return; }
-      if(!/^\d{7,8}$/.test(dni)){ setNote("Ingresá tu DNI sin puntos (7 u 8 números).",true); return; }
-      if(dir.length<5){ setNote("Ingresá la dirección de entrega con calle y número.",true); return; }
-      if(!loc){ setNote("Ingresá la localidad de entrega.",true); return; }
-      if(!prov){ setNote("Elegí la provincia.",true); return; }
-      if(!/^\d{4}$/.test(cp) && !/^[A-Za-z]\d{4}[A-Za-z]{3}$/.test(cp)){ setNote("Ingresá un código postal válido (ej: 5000).",true); return; }
-      var n=Math.max(1,parseInt(qty.value||"1",10)), repOn=rep.checked;
+      var d=collect(); if(!d) return;
+      var nombre=d.nombre, tel=d.tel, email=d.email, loc=d.loc, hp=d.hp, dni=d.dni, dir=d.dir, prov=d.prov, cp=d.cp;
+      var n=d.n, repOn=d.repOn;
       var total=UNIT*n+(repOn?REP*n:0); if(cuponOK){ total-=Math.min(total,cuponDesc); }
       try{ if(window.fbq) fbq('track','InitiateCheckout',{value:total,currency:'ARS',content_ids:['BETTA-C1500'],content_type:'product',num_items:n}); }catch(_){}
       var body=new URLSearchParams({ cant_soldadora:String(n), cant_rep_c: repOn?String(n):"0",
